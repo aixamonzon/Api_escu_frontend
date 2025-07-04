@@ -40,7 +40,7 @@ export default function Usuarios() {
   return (
     <>
       <Navbar userType={user.type} />
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen p-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Usuarios registrados</h1>
 
       <button

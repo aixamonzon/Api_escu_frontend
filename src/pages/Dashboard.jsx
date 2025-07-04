@@ -12,7 +12,7 @@ export default function Dashboard({ onLogout }) {
   }, [isAuthenticated]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar userType={user.type} userName={user.nombre} onLogout={logout} />
       
       <main className="flex-grow flex items-center justify-center px-4">

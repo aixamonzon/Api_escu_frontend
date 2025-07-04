@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import fondo from './assets/Fondo.jpeg';
 import './App.css'
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -13,11 +14,21 @@ import Carreras from "./pages/Carreras";
 import Pagos from "./pages/Pagos";
 import PagoForm from "./pages/PagoForm";
 import Inscripciones from "./pages/InscripcionForm";
+import MisPagos from "./pages/MisPagos";
+import MiPerfil from "./pages/MiPerfil";
 
 function App() {
    const { isAuthenticated } = useContext(AuthContext);
 
   return (
+    <div
+      style={{
+        backgroundImage: `url(${fondo})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+      }}
+      >
     <Router>
       <Routes>
         <Route
@@ -38,8 +49,11 @@ function App() {
         <Route path="/pagos/nuevo" element={<PagoForm />} />
         <Route path="/pagos/editar/:id" element={<PagoForm />} />
         <Route path="/inscripciones/nueva" element={<Inscripciones />} />
+        <Route path="/mis-pagos" element={<MisPagos />} />
+        <Route path="/mi-perfil" element={<MiPerfil />} />
       </Routes>
     </Router>
+        </div>
   )
 }
 
