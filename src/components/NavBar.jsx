@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-function NavBar({ userType, onLogout = () => {} }) {
+function NavBar({ }) {
+    const { user, logout } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -19,10 +21,10 @@ function NavBar({ userType, onLogout = () => {} }) {
           className="text-blue-600 font-semibold hover:underline"
           onClick={() => navigate("/dashboard")}
         >
-          Home
+          Principal
         </button>
 
-        {userType === "alumno" && (
+        {user.type === "alumno" && (
           <>
             <button onClick={() => navigate("/mis-pagos")} className="text-blue-600 hover:underline">
               Mis Pagos
@@ -33,7 +35,7 @@ function NavBar({ userType, onLogout = () => {} }) {
           </>
         )}
 
-        {userType === "admin" && (
+        {user.type === "admin" && (
           <>
             <button onClick={() => navigate("/pagos")} className="text-blue-600 hover:underline">
               Pagos
