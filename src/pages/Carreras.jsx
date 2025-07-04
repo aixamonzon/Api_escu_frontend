@@ -17,12 +17,10 @@ export default function Carreras() {
 
       const resCarreras = await fetch("http://localhost:8000/carreras/all", { headers });
       const dataCarreras = await resCarreras.json();
-      console.log(dataCarreras);
       setCarreras(dataCarreras);
 
       const resInscripciones = await fetch("http://localhost:8000/user_carreras/all", { headers });
       const dataInscripciones = await resInscripciones.json();
-      console.log(dataInscripciones);
       setInscripciones(dataInscripciones);
     };
 

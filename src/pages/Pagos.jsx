@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/NavBar";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Pagos() {
   const [pagos, setPagos] = useState([]);
   const [error, setError] = useState(null);
 
+  const { user } = useContext(AuthContext);
+  const userType = user.type;
   const token = localStorage.getItem("token");
-  const userType = localStorage.getItem("type");
 
   useEffect(() => {
     const fetchPagos = async () => {
@@ -22,7 +24,6 @@ export default function Pagos() {
         setError(err.message);
       }
     };
-
     if (userType === "admin") fetchPagos();
   }, [token, userType]);
 
@@ -72,7 +73,7 @@ export default function Pagos() {
             {pagos.map((pago) => (
               <tr key={pago.id}>
                 <td className="py-2 px-4">{pago.user.username}</td>
-                <td className="py-2 px-4">{pago.carrera_id}</td>
+                <td className="py-2 px-4">{pago.carrera?.nombre}</td>
                 <td className="py-2 px-4">{pago.mes}</td>
                 <td className="py-2 px-4">${pago.monto}</td>
                 <td className="py-2 px-4">{pago.fecha_pago}</td>
