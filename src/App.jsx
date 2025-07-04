@@ -10,6 +10,9 @@ import NuevoUsuario from "./pages/NuevoUsuario";
 import EditarUsuario from "./pages/EditarUsuario";
 import CarreraForm from "./pages/CarreraForm";
 import Carreras from "./pages/Carreras";
+import Pagos from "./pages/Pagos";
+import PagoForm from "./pages/PagoForm";
+import Inscripciones from "./pages/InscripcionForm";
 
 function App() {
    const { isAuthenticated } = useContext(AuthContext);
@@ -31,6 +34,10 @@ function App() {
         <Route path="/carreras" element={isAuthenticated ? <Carreras /> : <Navigate to="/" />} />
         <Route path="/carreras/nueva" element={<CarreraForm />} />
         <Route path="/carreras/editar/:id" element={<CarreraForm />} />
+        <Route path="/pagos" element={<Pagos />} />
+        <Route path="/pagos/nuevo" element={<PagoForm />} />
+        <Route path="/pagos/editar/:id" element={<PagoForm />} />
+        <Route path="/inscripciones/nueva" element={<Inscripciones />} />
       </Routes>
     </Router>
   )
