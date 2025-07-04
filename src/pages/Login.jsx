@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-export default function Login({ onLogin }) {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,19 +27,7 @@ export default function Login({ onLogin }) {
         return;
         }
 
-        // Guardar token
-        localStorage.setItem("token", data.token);
-
-        // Opcional: decodificar token para obtener nombre
-        const payloadBase64 = data.token.split(".")[1];
-        const payload = JSON.parse(atob(payloadBase64));
-        const nombre = payload.username || "Usuario";
-        const type = payload.type || "alumno";
-
-        localStorage.setItem("nombre", nombre);
-        localStorage.setItem("type", type);
-
-        onLogin();
+        login(data.token);
 
         navigate("/dashboard");
         } catch (err) {
