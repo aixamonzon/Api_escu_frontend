@@ -1,35 +1,76 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function NavBar() {
-    const [tipoUsuario, setTipoUsuario] = useState("");
+function NavBar({ userType, onLogout }) {
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const storedTipoUsuario = localStorage.getItem("tipoUsuario");
-        if (storedTipoUsuario) {
-            setTipoUsuario(storedTipoUsuario);
-        }
-    }, []);
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("nombre");
+        localStorage.removeItem("type");
+        onLogout();
+        navigate("/");
+  };
 
-    return(
-        <nav className="bg-gray-800 p-4">
-            <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="text-white text-lg font-bold">Inicio</Link>
-                <div className="space-x-4">
-                    {tipoUsuario === "admin" && (
-                        <>
-                            <Link to="/pagos" className="text-white">Pagos</Link>
-                            <Link to="/usuarios" className="text-white">Usuarios</Link>
-                        </>
-                    )}
-                    {tipoUsuario === "alumno" && (
-                        <Link to="/perfil" className="text-white">Perfil</Link>
-                    )}
-                    <Link to="/login" className="text-white">Cerrar Sesión</Link>
-                </div>
-            </div>
-        </nav>
-    );
+      return (
+    <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+      <div className="flex gap-4 items-center">
+        <button
+          className="text-blue-600 font-semibold hover:underline"
+          onClick={() => navigate("/dashboard")}
+        >
+          Home
+        </button>
+
+        {userType === "alumno" && (
+          <>
+            <button
+              className="text-blue-600 font-semibold hover:underline"
+              onClick={() => navigate("/mis-pagos")}
+            >
+              Mis Pagos
+            </button>
+            <button
+              className="text-blue-600 font-semibold hover:underline"
+              onClick={() => navigate("/mi-perfil")}
+            >
+              Mi Perfil
+            </button>
+          </>
+        )}
+
+        {userType === "admin" && (
+          <>
+            <button
+              className="text-blue-600 font-semibold hover:underline"
+              onClick={() => navigate("/pagos")}
+            >
+              Pagos
+            </button>
+            <button
+              className="text-blue-600 font-semibold hover:underline"
+              onClick={() => navigate("/usuarios")}
+            >
+              Usuarios
+            </button>
+            <button
+              className="text-blue-600 font-semibold hover:underline"
+              onClick={() => navigate("/carreras")}
+            >
+              Carreras
+            </button>
+          </>
+        )}
+      </div>
+
+      <button
+        onClick={handleLogout}
+        className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
+      >
+        Cerrar sesión
+      </button>
+    </nav>
+  );
 }
 
 export default NavBar;
